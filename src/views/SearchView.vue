@@ -1,22 +1,73 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import products from '../data/products.json'
 
 const route = useRoute()
+const router = useRouter()
 const searchQuery = ref('')
+const selectedCategory = ref('all')
+const sortBy = ref('default')
 
-const filteredItems = computed(() => {
-  if (!searchQuery.value) {
-    return []
+const categories = [
+  { value: 'all', label: '全部' },
+  { value: 'sofa', label: '沙发' },
+  { value: 'lamp', label: '灯具' },
+  { value: 'art', label: '装饰' },
+  { value: 'storage', label: '收纳' },
+  { value: 'clock', label: '时钟' },
+  { value: 'cushion', label: '抱枕' },
+  { value: 'floorlamp', label: '落地灯' },
+  { value: 'table', label: '桌子' }
+]
+
+const sortOptions = [
+  { value: 'default', label: '默认排序' },
+  { value: 'price-asc', label: '价格从低到高' },
+  { value: 'price-desc', label: '价格从高到低' },
+  { value: 'rating', label: '评分最高' }
+]
+
+const filteredProducts = computed(() => {
+  let result = [...products]
+
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    result = result.filter(product =>
+      product.name.toLowerCase().includes(query) ||
+      product.description.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query)
+    )
   }
-  const query = searchQuery.value.toLowerCase()
-  return products.filter(product => 
-    product.name.toLowerCase().includes(query) || 
-    product.description.toLowerCase().includes(query) || 
-    product.category.toLowerCase().includes(query)
-  )
+
+  if (selectedCategory.value !== 'all') {
+    result = result.filter(product =>
+      product.category.toLowerCase().includes(selectedCategory.value)
+    )
+  }
+
+  switch (sortBy.value) {
+    case 'price-asc':
+      result.sort((a, b) => a.price - b.price)
+      break
+    case 'price-desc':
+      result.sort((a, b) => b.price - a.price)
+      break
+    case 'rating':
+      result.sort((a, b) => b.rating - a.rating)
+      break
+  }
+
+  return result
 })
+
+const updateSearchQuery = () => {
+  if (searchQuery.value) {
+    router.push({ query: { q: searchQuery.value } })
+  } else {
+    router.push({ query: {} })
+  }
+}
 
 onMounted(() => {
   const q = route.query.q as string
@@ -25,54 +76,114 @@ onMounted(() => {
   }
 })
 
-const handleSearch = () => {
-  // 搜索逻辑已在计算属性中处理
-}
+watch(() => route.query.q, (newQ) => {
+  if (newQ) {
+    searchQuery.value = newQ as string
+  }
+})
 </script>
 
 <template>
   <div class="search-page">
-    <div class="container">
-      <h1 class="search-title">搜索商品</h1>
-      <div class="search-bar">
-        <input
-          type="text"
-          v-model="searchQuery"
-          placeholder="输入关键词搜索..."
-          class="search-input"
-          @keyup.enter="handleSearch"
-        />
-        <button class="search-button" @click="handleSearch">搜索</button>
+    <div class="search-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 class="page-title">探索产品</h1>
+          <p class="page-subtitle">发现适合您家居风格的优质产品</p>
+        </div>
+
+        <div class="search-bar">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="search-input"
+              placeholder="搜索产品..."
+              @input="updateSearchQuery"
+            />
+            <button v-if="searchQuery" class="clear-btn" @click="searchQuery = ''">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
-      
-      <div class="search-results">
-        <h2 class="results-title">
-          {{ searchQuery ? `搜索结果: "${searchQuery}"` : '请输入搜索关键词' }}
-        </h2>
-        
-        <div v-if="filteredItems.length > 0" class="products-grid">
-          <div v-for="product in filteredItems" :key="product.id" class="product-card">
+    </div>
+
+    <div class="search-content">
+      <div class="container">
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label class="filter-label">分类</label>
+            <div class="category-tabs">
+              <button
+                v-for="cat in categories.slice(0, 5)"
+                :key="cat.value"
+                class="category-tab"
+                :class="{ active: selectedCategory === cat.value }"
+                @click="selectedCategory = cat.value"
+              >
+                {{ cat.label }}
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">排序</label>
+            <select v-model="sortBy" class="sort-select">
+              <option v-for="opt in sortOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-info">
+          <span class="results-count">共 {{ filteredProducts.length }} 件产品</span>
+          <span v-if="searchQuery" class="search-term">搜索: "{{ searchQuery }}"</span>
+        </div>
+
+        <div v-if="filteredProducts.length > 0" class="products-grid">
+          <article v-for="product in filteredProducts" :key="product.id" class="product-card">
             <router-link :to="`/product/${product.id}`" class="product-link">
               <div class="product-image">
-                <img :src="product.images[0]" :alt="product.name" />
+                <img :src="product.images[0]" :alt="product.name" loading="lazy" />
+                <div class="product-overlay">
+                  <span class="view-btn">查看详情</span>
+                </div>
               </div>
-              <div class="product-info">
+              <div class="product-content">
+                <span class="product-category">{{ product.category }}</span>
                 <h3 class="product-name">{{ product.name }}</h3>
-                <p class="product-description">{{ product.description }}</p>
-                <div class="product-price">¥{{ product.price }}</div>
-                <div class="product-rating">
-                  <span v-for="i in 5" :key="i" class="star">
-                    {{ i <= Math.floor(product.rating) ? '★' : '☆' }}
-                  </span>
-                  <span class="rating-text">{{ product.rating }}</span>
+                <div class="product-footer">
+                  <span class="product-price">¥{{ product.price.toLocaleString() }}</span>
+                  <div class="product-rating">
+                    <svg v-for="i in 5" :key="i" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" :class="{ filled: i <= Math.floor(product.rating) }">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span class="rating-value">{{ product.rating }}</span>
+                  </div>
                 </div>
               </div>
             </router-link>
-          </div>
+          </article>
         </div>
-        
-        <div v-else-if="searchQuery" class="no-results">
-          <p>未找到匹配的商品，请尝试其他关键词</p>
+
+        <div v-else class="empty-state">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <h3 class="empty-title">未找到相关产品</h3>
+          <p class="empty-text">尝试使用其他关键词或筛选条件</p>
+          <button class="btn btn-secondary" @click="searchQuery = ''; selectedCategory = 'all'">
+            清除筛选
+          </button>
         </div>
       </div>
     </div>
@@ -81,94 +192,193 @@ const handleSearch = () => {
 
 <style scoped>
 .search-page {
-  padding: 60px 0;
+  min-height: 100vh;
+  padding-top: 100px;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.search-header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--spacing-3xl) 0;
 }
 
-.search-title {
-  font-size: 32px;
-  font-weight: 700;
+.header-content {
   text-align: center;
-  margin: 0 0 40px;
-  color: #333;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
 }
 
 .search-bar {
-  display: flex;
   max-width: 600px;
-  margin: 0 auto 40px;
-  gap: 10px;
+  margin: 0 auto;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  transition: all var(--transition-fast);
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
 }
 
 .search-input {
   flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #999;
-}
-
-.search-button {
-  padding: 12px 24px;
-  background-color: #333;
-  color: #fff;
+  background: transparent;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  color: var(--text-primary);
+  padding: 0;
 }
 
-.search-button:hover {
-  background-color: #555;
+.search-input::placeholder {
+  color: var(--text-muted);
 }
 
-.results-title {
-  font-size: 24px;
+.clear-btn {
+  color: var(--text-muted);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+}
+
+.clear-btn:hover {
+  color: var(--text-primary);
+}
+
+.search-content {
+  padding: var(--spacing-3xl) 0;
+}
+
+.filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.filter-label {
+  font-size: 0.75rem;
   font-weight: 600;
-  margin: 0 0 30px;
-  color: #333;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.category-tabs {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.category-tab {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.category-tab:hover {
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.category-tab.active {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+.sort-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.results-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.results-count {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.search-term {
+  font-size: 0.875rem;
+  color: var(--accent-gold);
 }
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
 }
 
 .product-card {
-  background-color: white;
-  border-radius: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: var(--border-light);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
 }
 
 .product-link {
   display: block;
   text-decoration: none;
-  color: #333;
+  color: inherit;
 }
 
 .product-image {
-  width: 100%;
-  height: 250px;
+  position: relative;
+  aspect-ratio: 4/3;
   overflow: hidden;
 }
 
@@ -176,87 +386,146 @@ const handleSearch = () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-slow);
 }
 
 .product-card:hover .product-image img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-.product-info {
-  padding: 20px;
+.product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.view-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transform: translateY(10px);
+  transition: transform var(--transition-base);
+}
+
+.product-card:hover .view-btn {
+  transform: translateY(0);
+}
+
+.product-content {
+  padding: var(--spacing-lg);
+}
+
+.product-category {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--spacing-sm);
 }
 
 .product-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
 }
 
-.product-description {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 15px;
-  line-height: 1.4;
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .product-price {
-  font-size: 20px;
-  font-weight: 700;
-  color: #333;
-  margin: 0 0 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .product-rating {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 2px;
 }
 
-.star {
-  color: #ffc107;
-  font-size: 14px;
+.product-rating svg {
+  color: var(--text-muted);
 }
 
-.rating-text {
-  font-size: 14px;
-  color: #666;
-  margin-left: 5px;
+.product-rating svg.filled {
+  color: var(--accent-gold);
 }
 
-.no-results {
+.rating-value {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: var(--spacing-xs);
+}
+
+.empty-state {
   text-align: center;
-  padding: 60px 0;
-  color: #666;
-  font-size: 18px;
+  padding: var(--spacing-4xl) 0;
+}
+
+.empty-state svg {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+}
+
+.empty-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.empty-text {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .search-title {
-    font-size: 28px;
-    margin-bottom: 30px;
-  }
-
-  .search-bar {
+  .filters-bar {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .search-input {
-    width: 100%;
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .search-button {
-    width: 100%;
-  }
-
-  .results-title {
-    font-size: 20px;
-    margin-bottom: 20px;
+  .category-tabs {
+    flex-wrap: wrap;
   }
 
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr;
   }
 }
 </style>

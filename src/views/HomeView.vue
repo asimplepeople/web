@@ -1,81 +1,50 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import products from '../data/products.json'
 
 const currentSlide = ref(0)
+const isAutoPlaying = ref(true)
+let slideInterval: ReturnType<typeof setInterval> | null = null
+
 const slides = [
   {
     id: 1,
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20home%20interior%20with%20modern%20furniture%2C%20clean%20lines%2C%20bright%20space&image_size=landscape_16_9',
-    title: 'Minimalist Home Style',
-    description: 'Explore a simple yet sophisticated lifestyle'
+    title: '简约之美',
+    subtitle: 'The Beauty of Simplicity',
+    description: '探索极简设计的精髓，每一件产品都经过精心挑选，为您的空间带来宁静与和谐。',
+    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20home%20interior%20with%20modern%20furniture%2C%20clean%20lines%2C%20bright%20space%2C%20luxury%20dark%20theme&image_size=landscape_16_9'
   },
   {
     id: 2,
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20living%20room%20with%20minimalist%20design%2C%20neutral%20colors%2C%20natural%20light&image_size=landscape_16_9',
-    title: 'Modern Living Space',
-    description: 'Create a comfortable and stylish living environment'
+    title: '匠心工艺',
+    subtitle: 'Crafted with Care',
+    description: '我们与顶尖设计师合作，将传统工艺与现代美学完美融合，打造经得起时间考验的经典之作。',
+    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20living%20room%20with%20minimalist%20design%2C%20neutral%20colors%2C%20natural%20light%2C%20luxury%20dark%20theme&image_size=landscape_16_9'
   },
   {
     id: 3,
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20bedroom%20with%20clean%20design%2C%20soft%20colors%2C%20functional%20furniture&image_size=landscape_16_9',
-    title: 'Tranquil Bedroom',
-    description: 'Create a peaceful and comfortable resting space'
+    title: '舒适生活',
+    subtitle: 'Comfort Living',
+    description: '家是心灵的港湾。我们相信，简约的设计能够带来更深层次的舒适与宁静。',
+    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20bedroom%20with%20clean%20design%2C%20soft%20colors%2C%20functional%20furniture%2C%20luxury%20dark%20theme&image_size=landscape_16_9'
   }
 ]
 
 const categories = [
-  {
-    id: 1,
-    name: 'Furniture',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20furniture%20collection%2C%20modern%20design&image_size=landscape_16_9',
-    count: 12
-  },
-  {
-    id: 2,
-    name: 'Lighting',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20minimalist%20lighting%20fixtures&image_size=landscape_16_9',
-    count: 8
-  },
-  {
-    id: 3,
-    name: 'Home Decor',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20home%20decor%20items&image_size=landscape_16_9',
-    count: 15
-  },
-  {
-    id: 4,
-    name: 'Storage',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20storage%20solutions&image_size=landscape_16_9',
-    count: 10
-  }
-]
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Emma Johnson',
-    avatar: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20woman%20portrait%2C%20minimalist%20style&image_size=square',
-    comment: 'The quality of the furniture is exceptional. It perfectly fits our minimalist home decor.',
-    rating: 5
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    avatar: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20man%20portrait%2C%20minimalist%20style&image_size=square',
-    comment: 'I love the clean design and functionality of every piece I purchased.',
-    rating: 4
-  },
-  {
-    id: 3,
-    name: 'Sophia Williams',
-    avatar: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=young%20woman%20portrait%2C%20minimalist%20style&image_size=square',
-    comment: 'The delivery was prompt and the assembly was straightforward. Highly recommended!',
-    rating: 5
-  }
+  { id: 1, name: '沙发', nameEn: 'Sofa', count: 4, image: '/assets/products/sofa-1.jpg' },
+  { id: 2, name: '灯具', nameEn: 'Lighting', count: 8, image: '/assets/products/lamp-1.jpg' },
+  { id: 3, name: '装饰', nameEn: 'Decor', count: 8, image: '/assets/products/art-1.jpg' },
+  { id: 4, name: '收纳', nameEn: 'Storage', count: 4, image: '/assets/products/storage-1.jpg' }
 ]
 
 const featuredProducts = ref(products.slice(0, 4))
+
+const stats = [
+  { value: '500+', label: '精选产品' },
+  { value: '50K+', label: '满意客户' },
+  { value: '99%', label: '好评率' },
+  { value: '24/7', label: '贴心服务' }
+]
 
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slides.length
@@ -85,175 +54,205 @@ const prevSlide = () => {
   currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
 }
 
+const goToSlide = (index: number) => {
+  currentSlide.value = index
+}
+
+const startAutoPlay = () => {
+  if (slideInterval) clearInterval(slideInterval)
+  slideInterval = setInterval(nextSlide, 6000)
+}
+
+const stopAutoPlay = () => {
+  if (slideInterval) {
+    clearInterval(slideInterval)
+    slideInterval = null
+  }
+}
+
 onMounted(() => {
-  setInterval(nextSlide, 5000)
+  if (isAutoPlaying.value) {
+    startAutoPlay()
+  }
+})
+
+onUnmounted(() => {
+  stopAutoPlay()
 })
 </script>
 
 <template>
   <div class="home">
-    <!-- 轮播图 -->
-    <div class="carousel">
-      <div class="carousel-container">
-        <div
-          v-for="(slide, index) in slides"
-          :key="slide.id"
-          class="carousel-slide"
-          :class="{ active: index === currentSlide }"
-        >
-          <img :src="slide.image" :alt="slide.title" class="carousel-image" />
-          <div class="carousel-content">
-            <h2 class="carousel-title">{{ slide.title }}</h2>
-            <p class="carousel-description">{{ slide.description }}</p>
+    <section class="hero">
+      <div class="hero-slides">
+        <TransitionGroup name="slide-fade">
+          <div
+            v-for="(slide, index) in slides"
+            :key="slide.id"
+            v-show="index === currentSlide"
+            class="hero-slide"
+          >
+            <div class="hero-image">
+              <img :src="slide.image" :alt="slide.title" />
+              <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+              <span class="hero-subtitle">{{ slide.subtitle }}</span>
+              <h1 class="hero-title">{{ slide.title }}</h1>
+              <p class="hero-description">{{ slide.description }}</p>
+              <div class="hero-actions">
+                <router-link to="/search" class="btn btn-primary">探索产品</router-link>
+                <router-link to="/about" class="btn btn-secondary">了解更多</router-link>
+              </div>
+            </div>
           </div>
-        </div>
+        </TransitionGroup>
       </div>
-      <button class="carousel-btn prev" @click="prevSlide">&lt;</button>
-      <button class="carousel-btn next" @click="nextSlide">&gt;</button>
-      <div class="carousel-indicators">
+
+      <div class="hero-nav">
+        <button class="nav-btn prev" @click="prevSlide" aria-label="上一张">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <button class="nav-btn next" @click="nextSlide" aria-label="下一张">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="hero-indicators">
         <button
           v-for="(slide, index) in slides"
           :key="slide.id"
-          class="carousel-indicator"
+          class="indicator"
           :class="{ active: index === currentSlide }"
-          @click="currentSlide = index"
-        ></button>
+          @click="goToSlide(index)"
+        >
+          <span class="indicator-label">{{ String(index + 1).padStart(2, '0') }}</span>
+        </button>
       </div>
-    </div>
 
-    <!-- 商品展示 -->
-    <div class="products-section">
+      <div class="scroll-hint">
+        <span>向下滚动</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="stats-section">
       <div class="container">
-        <h2 class="section-title">Featured Products</h2>
-        <div class="products-grid">
-          <div v-for="product in products" :key="product.id" class="product-card">
-            <router-link :to="`/product/${product.id}`" class="product-link">
-              <div class="product-image">
-                <img :src="product.images[0]" :alt="product.name" />
-              </div>
-              <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-                <div class="product-model">Model: {{ product.modelId }}</div>
-                <p class="product-description">{{ product.description }}</p>
-                <div class="product-price">¥{{ product.price }}</div>
-                <div class="product-rating">
-                  <span v-for="i in 5" :key="i" class="star">
-                    {{ i <= Math.floor(product.rating) ? '★' : '☆' }}
-                  </span>
-                  <span class="rating-text">{{ product.rating }}</span>
-                </div>
-              </div>
-            </router-link>
+        <div class="stats-grid">
+          <div v-for="stat in stats" :key="stat.label" class="stat-item">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 分类导航 -->
-    <div class="categories-section">
+    <section class="featured-section section">
       <div class="container">
-        <h2 class="section-title">Shop by Category</h2>
+        <div class="section-header">
+          <span class="section-tag">Featured</span>
+          <h2 class="section-title">精选产品</h2>
+          <p class="section-subtitle">我们精心挑选的优质产品，为您的家增添独特魅力</p>
+        </div>
+
+        <div class="products-grid">
+          <article v-for="product in featuredProducts" :key="product.id" class="product-card">
+            <router-link :to="`/product/${product.id}`" class="product-link">
+              <div class="product-image">
+                <img :src="product.images[0]" :alt="product.name" loading="lazy" />
+                <div class="product-overlay">
+                  <span class="view-btn">查看详情</span>
+                </div>
+              </div>
+              <div class="product-content">
+                <span class="product-category">{{ product.category }}</span>
+                <h3 class="product-name">{{ product.name }}</h3>
+                <div class="product-footer">
+                  <span class="product-price">¥{{ product.price.toLocaleString() }}</span>
+                  <div class="product-rating">
+                    <svg v-for="i in 5" :key="i" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" :class="{ filled: i <= Math.floor(product.rating) }">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span class="rating-value">{{ product.rating }}</span>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </article>
+        </div>
+
+        <div class="section-action">
+          <router-link to="/search" class="btn btn-secondary">查看全部产品</router-link>
+        </div>
+      </div>
+    </section>
+
+    <section class="categories-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Categories</span>
+          <h2 class="section-title">产品分类</h2>
+          <p class="section-subtitle">探索不同风格的家居产品，找到最适合您的那一款</p>
+        </div>
+
         <div class="categories-grid">
-          <div v-for="category in categories" :key="category.id" class="category-card">
+          <router-link v-for="category in categories" :key="category.id" to="/search" class="category-card">
             <div class="category-image">
-              <img :src="category.image" :alt="category.name" />
+              <img :src="category.image" :alt="category.name" loading="lazy" />
+              <div class="category-overlay"></div>
             </div>
             <div class="category-content">
+              <span class="category-name-en">{{ category.nameEn }}</span>
               <h3 class="category-name">{{ category.name }}</h3>
-              <p class="category-count">{{ category.count }} Products</p>
+              <span class="category-count">{{ category.count }} 件产品</span>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 品牌理念 -->
-    <div class="brand-section">
+    <section class="about-section section">
       <div class="container">
-        <div class="brand-content">
-          <div class="brand-text">
-            <h2 class="section-title">Our Brand Philosophy</h2>
-            <p class="brand-description">
-              At Minimal Home, we believe that less is more. Our design philosophy focuses on creating functional, 
-              aesthetically pleasing products that enhance your living space without unnecessary clutter. 
-              We carefully select materials and craftsmanship to ensure each piece meets our high standards of quality and durability.
+        <div class="about-grid">
+          <div class="about-content">
+            <span class="section-tag">About Us</span>
+            <h2 class="about-title">追求极致的简约美学</h2>
+            <p class="about-text">
+              极简家居成立于2018年，我们相信简约不等于简单。每一件产品都经过严格筛选，
+              确保其设计、品质与实用性达到完美平衡。我们致力于为追求品质生活的您，
+              提供最优质的家居产品。
             </p>
-            <router-link to="/about" class="brand-link">Learn More</router-link>
+            <p class="about-text">
+              我们的设计理念源于东方禅意与北欧极简的融合，追求"少即是多"的生活哲学。
+              每一件产品都承载着设计师的心血，每一处细节都经过反复推敲。
+            </p>
+            <router-link to="/about" class="btn btn-primary">了解更多</router-link>
           </div>
-          <div class="brand-image">
-            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20brand%20philosophy%20visual%2C%20clean%20design%2C%20modern%20aesthetic&image_size=landscape_16_9" alt="Brand Philosophy" />
+          <div class="about-image">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20brand%20philosophy%20visual%2C%20clean%20design%2C%20modern%20aesthetic%2C%20luxury%20dark%20theme&image_size=landscape_16_9" alt="关于我们" loading="lazy" />
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 客户评价 -->
-    <div class="testimonials-section">
+    <section class="cta-section">
       <div class="container">
-        <h2 class="section-title">Customer Reviews</h2>
-        <div class="testimonials-grid">
-          <div v-for="testimonial in testimonials" :key="testimonial.id" class="testimonial-card">
-            <div class="testimonial-avatar">
-              <img :src="testimonial.avatar" :alt="testimonial.name" />
-            </div>
-            <div class="testimonial-content">
-              <div class="testimonial-rating">
-                <span v-for="i in 5" :key="i" class="star">
-                  {{ i <= testimonial.rating ? '★' : '☆' }}
-                </span>
-              </div>
-              <p class="testimonial-comment">{{ testimonial.comment }}</p>
-              <h4 class="testimonial-name">{{ testimonial.name }}</h4>
-            </div>
-          </div>
+        <div class="cta-content">
+          <h2 class="cta-title">开启您的极简生活</h2>
+          <p class="cta-text">订阅我们的通讯，获取最新产品信息和专属优惠</p>
+          <form class="cta-form" @submit.prevent>
+            <input type="email" placeholder="输入您的邮箱地址" class="cta-input" />
+            <button type="submit" class="btn btn-primary">订阅</button>
+          </form>
         </div>
       </div>
-    </div>
-
-    <!-- 特色商品 -->
-    <div class="featured-section">
-      <div class="container">
-        <h2 class="section-title">Editor's Picks</h2>
-        <div class="products-grid">
-          <div v-for="product in featuredProducts" :key="product.id" class="product-card">
-            <router-link :to="`/product/${product.id}`" class="product-link">
-              <div class="product-image">
-                <img :src="product.images[0]" :alt="product.name" />
-                <div class="featured-badge">Editor's Pick</div>
-              </div>
-              <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-                <div class="product-model">Model: {{ product.modelId }}</div>
-                <p class="product-description">{{ product.description }}</p>
-                <div class="product-price">¥{{ product.price }}</div>
-                <div class="product-rating">
-                  <span v-for="i in 5" :key="i" class="star">
-                    {{ i <= Math.floor(product.rating) ? '★' : '☆' }}
-                  </span>
-                  <span class="rating-text">{{ product.rating }}</span>
-                </div>
-              </div>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 促销模块 -->
-    <div class="promotion-section">
-      <div class="container">
-        <div class="promotion-content">
-          <div class="promotion-text">
-            <h2 class="promotion-title">Free Shipping on Orders Over ¥1000</h2>
-            <p class="promotion-description">Shop now and enjoy free shipping on all orders over ¥1000. Limited time offer!</p>
-            <router-link to="/search" class="promotion-link">Shop Now</router-link>
-          </div>
-          <div class="promotion-image">
-            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20promotion%20banner%2C%20clean%20design%2C%20modern%20aesthetic&image_size=landscape_16_9" alt="Promotion" />
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -262,563 +261,640 @@ onMounted(() => {
   width: 100%;
 }
 
-/* 轮播图样式 */
-.carousel {
+.hero {
   position: relative;
-  width: 100%;
-  height: 600px;
+  height: 100vh;
+  min-height: 700px;
   overflow: hidden;
 }
 
-.carousel-container {
+.hero-slides {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.carousel-slide {
+.hero-slide {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-slide.active {
-  opacity: 1;
+.hero-image {
+  position: absolute;
+  inset: 0;
 }
 
-.carousel-image {
+.hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.carousel-content {
+.hero-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 60px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  color: white;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.9) 0%,
+    rgba(10, 10, 10, 0.7) 50%,
+    rgba(10, 10, 10, 0.5) 100%
+  );
 }
 
-.carousel-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0 0 10px;
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 var(--spacing-xl);
 }
 
-.carousel-description {
-  font-size: 18px;
-  margin: 0;
+.hero-subtitle {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0;
+  animation: fadeInDown 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.1;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.4s;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
   max-width: 600px;
+  margin: 0 auto var(--spacing-2xl);
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.6s;
 }
 
-.carousel-btn {
+.hero-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.8s;
+}
+
+.hero-nav {
   position: absolute;
   top: 50%;
+  left: 0;
+  right: 0;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.3);
-  color: white;
-  border: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--spacing-xl);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.nav-btn {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 10;
+  color: var(--text-primary);
+  transition: all var(--transition-base);
+  pointer-events: auto;
 }
 
-.carousel-btn:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+.nav-btn:hover {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--bg-primary);
+  transform: scale(1.1);
 }
 
-.carousel-btn.prev {
-  left: 20px;
-}
-
-.carousel-btn.next {
-  right: 20px;
-}
-
-.carousel-indicators {
+.hero-indicators {
   position: absolute;
-  bottom: 20px;
+  bottom: var(--spacing-3xl);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
-  z-index: 10;
+  gap: var(--spacing-md);
+  z-index: 20;
 }
 
-.carousel-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
+.indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: transparent;
   border: none;
+  color: var(--text-muted);
+  transition: all var(--transition-base);
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.carousel-indicator.active {
-  background-color: white;
+.indicator-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
 }
 
-/* 商品展示样式 */
-.products-section {
-  padding: 80px 0;
+.indicator::after {
+  content: '';
+  width: 40px;
+  height: 2px;
+  background: var(--border-light);
+  transition: all var(--transition-base);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.indicator.active {
+  color: var(--accent-gold);
 }
 
-.section-title {
-  font-size: 32px;
-  font-weight: 700;
+.indicator.active::after {
+  background: var(--accent-gold);
+  width: 60px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  z-index: 20;
+  animation: float 2s ease-in-out infinite;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 1s ease;
+}
+
+.slide-fade-enter-from {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+}
+
+.stats-section {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--spacing-3xl) 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
+}
+
+.stat-item {
   text-align: center;
-  margin: 0 0 60px;
-  color: #333;
+  padding: var(--spacing-lg);
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--accent-gold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--spacing-md);
+}
+
+.section-action {
+  text-align: center;
+  margin-top: var(--spacing-3xl);
 }
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
 }
 
 .product-card {
-  background-color: white;
-  border-radius: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: var(--border-light);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
 }
 
 .product-link {
   display: block;
   text-decoration: none;
-  color: #333;
+  color: inherit;
 }
 
 .product-image {
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
   position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
 }
 
 .product-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-slow);
 }
 
 .product-card:hover .product-image img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-.product-info {
-  padding: 20px;
+.product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.view-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transform: translateY(10px);
+  transition: transform var(--transition-base);
+}
+
+.product-card:hover .view-btn {
+  transform: translateY(0);
+}
+
+.product-content {
+  padding: var(--spacing-lg);
+}
+
+.product-category {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--spacing-sm);
 }
 
 .product-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 5px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
 }
 
-.product-model {
-  font-size: 12px;
-  color: #999;
-  margin: 0 0 10px;
-}
-
-.product-description {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 15px;
-  line-height: 1.4;
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .product-price {
-  font-size: 20px;
-  font-weight: 700;
-  color: #333;
-  margin: 0 0 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .product-rating {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 2px;
 }
 
-.star {
-  color: #ffc107;
-  font-size: 14px;
+.product-rating svg {
+  color: var(--text-muted);
 }
 
-.rating-text {
-  font-size: 14px;
-  color: #666;
-  margin-left: 5px;
+.product-rating svg.filled {
+  color: var(--accent-gold);
 }
 
-/* 分类导航样式 */
+.rating-value {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: var(--spacing-xs);
+}
+
 .categories-section {
-  padding: 80px 0;
-  background-color: #f8f8f8;
+  padding: var(--spacing-4xl) 0;
+  background: var(--bg-secondary);
 }
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
 }
 
 .category-card {
-  background-color: white;
-  border-radius: 8px;
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
 }
 
 .category-image {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
 }
 
 .category-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-slow);
 }
 
 .category-card:hover .category-image img {
-  transform: scale(1.05);
+  transform: scale(1.1);
+}
+
+.category-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.9) 0%,
+    rgba(10, 10, 10, 0.3) 50%,
+    transparent 100%
+  );
 }
 
 .category-content {
-  padding: 20px;
-  text-align: center;
-}
-
-.category-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 5px;
-  color: #333;
-}
-
-.category-count {
-  font-size: 14px;
-  color: #666;
-  margin: 0;
-}
-
-/* 品牌理念样式 */
-.brand-section {
-  padding: 100px 0;
-}
-
-.brand-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.brand-text {
-  padding: 20px 0;
-}
-
-.brand-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #666;
-  margin: 0 0 30px;
-}
-
-.brand-link {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #333;
-  color: white;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.brand-link:hover {
-  background-color: #555;
-  transform: translateY(-2px);
-  color: white;
-}
-
-.brand-image {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.brand-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* 客户评价样式 */
-.testimonials-section {
-  padding: 80px 0;
-  background-color: #f8f8f8;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 40px;
-}
-
-.testimonial-card {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.testimonial-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto 20px;
-}
-
-.testimonial-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.testimonial-rating {
-  margin: 0 0 15px;
-}
-
-.testimonial-comment {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #666;
-  margin: 0 0 20px;
-  font-style: italic;
-}
-
-.testimonial-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
-/* 特色商品样式 */
-.featured-section {
-  padding: 80px 0;
-}
-
-.featured-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #333;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-xl);
   z-index: 10;
 }
 
-/* 促销模块样式 */
-.promotion-section {
-  padding: 80px 0;
-  background-color: #f0f0f0;
+.category-name-en {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--spacing-xs);
 }
 
-.promotion-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  background-color: white;
-  border-radius: 8px;
-  padding: 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.category-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
 }
 
-.promotion-text {
-  padding: 20px 0;
+.category-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
-.promotion-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0 0 15px;
-  color: #333;
-}
-
-.promotion-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #666;
-  margin: 0 0 30px;
-}
-
-.promotion-link {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #333;
-  color: white;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.promotion-link:hover {
-  background-color: #555;
-  transform: translateY(-2px);
-  color: white;
-}
-
-.promotion-image {
-  border-radius: 8px;
+.about-section {
   overflow: hidden;
 }
 
-.promotion-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4xl);
+  align-items: center;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .carousel {
-    height: 400px;
-  }
+.about-content {
+  max-width: 540px;
+}
 
-  .carousel-content {
-    padding: 40px;
-  }
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
+}
 
-  .carousel-title {
-    font-size: 28px;
-  }
+.about-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
 
-  .carousel-description {
-    font-size: 16px;
-  }
+.about-image {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
 
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-  }
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid var(--accent-gold);
+  border-radius: var(--radius-lg);
+  opacity: 0.3;
+}
 
-  .products-section,
-  .categories-section,
-  .brand-section,
-  .testimonials-section,
-  .featured-section,
-  .promotion-section {
-    padding: 60px 0;
-  }
+.about-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
-  .section-title {
-    font-size: 28px;
-    margin-bottom: 40px;
-  }
+.cta-section {
+  padding: var(--spacing-4xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--bg-secondary) 0%,
+    var(--bg-tertiary) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
 
-  .brand-content,
-  .promotion-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
 
+.cta-content {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.cta-text {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.cta-form {
+  display: flex;
+  gap: var(--spacing-md);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cta-input {
+  flex: 1;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.cta-input::placeholder {
+  color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+  .products-grid,
   .categories-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .testimonials-grid {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 600px;
+  }
+
+  .hero-nav {
+    display: none;
+  }
+
+  .hero-indicators {
+    bottom: var(--spacing-xl);
+  }
+
+  .scroll-hint {
+    display: none;
+  }
+
+  .products-grid,
+  .categories-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: var(--spacing-lg);
   }
 
-  .promotion-content {
-    padding: 30px;
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
   }
 
-  .promotion-title {
-    font-size: 24px;
+  .about-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .cta-form {
+    flex-direction: column;
   }
 }
 
 @media (max-width: 480px) {
-  .carousel {
-    height: 300px;
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
   }
 
-  .carousel-content {
-    padding: 30px;
-  }
-
-  .carousel-title {
-    font-size: 24px;
-  }
-
-  .carousel-description {
-    font-size: 14px;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
-
-  .brand-description,
-  .promotion-description {
-    font-size: 14px;
-  }
-
-  .promotion-content {
-    padding: 20px;
+  .stat-item {
+    padding: var(--spacing-md);
   }
 }
 </style>
