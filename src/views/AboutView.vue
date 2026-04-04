@@ -217,7 +217,7 @@ const team = [
   right: 0;
   width: 50%;
   height: 100%;
-  background: radial-gradient(circle at 80% 50%, rgba(201, 169, 110, 0.1), transparent 60%);
+  background: radial-gradient(circle at 80% 50%, rgba(126, 213, 210, 0.1), transparent 60%);
   pointer-events: none;
 }
 
@@ -339,7 +339,7 @@ const team = [
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--spacing-lg);
-  background: rgba(201, 169, 110, 0.1);
+  background: rgba(126, 213, 210, 0.1);
   border-radius: var(--radius-lg);
   color: var(--accent-gold);
 }

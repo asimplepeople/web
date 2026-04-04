@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import products from '../data/products.json'
 
@@ -12,16 +12,27 @@ const currentImageIndex = ref(0)
 const isZoomed = ref(false)
 const quantity = ref(1)
 
-onMounted(() => {
+const loadProduct = () => {
+  loading.value = true
   const id = parseInt(route.params.id as string)
   const foundProduct = products.find(p => p.id === id)
   if (foundProduct) {
     product.value = foundProduct
     selectedSize.value = foundProduct.sizes[0]
+    currentImageIndex.value = 0
+    quantity.value = 1
   } else {
     router.push('/')
   }
   loading.value = false
+}
+
+onMounted(() => {
+  loadProduct()
+})
+
+watch(() => route.params.id, () => {
+  loadProduct()
 })
 
 const handleSizeChange = (size: any) => {
@@ -56,7 +67,9 @@ const decreaseQuantity = () => {
 
 const relatedProducts = computed(() => {
   if (!product.value) return []
-  return products.filter(p => p.category === product.value.category && p.id !== product.value.id).slice(0, 4)
+  const filtered = products.filter(p => p.category === product.value.category && p.id !== product.value.id)
+  console.log('相关产品:', filtered)
+  return filtered.slice(0, 4)
 })
 </script>
 
@@ -120,6 +133,7 @@ const relatedProducts = computed(() => {
               <h1 class="product-title">{{ product.name }}</h1>
               <div class="product-meta">
                 <span class="model-id">型号: {{ product.modelId }}</span>
+                <span class="product-sales">已售 {{ product.sales }} 件</span>
                 <div class="product-rating">
                   <svg v-for="i in 5" :key="i" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" :class="{ filled: i <= Math.floor(product.rating) }">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -205,8 +219,56 @@ const relatedProducts = computed(() => {
                 <span>7天退换</span>
               </div>
             </div>
+
+            <div class="product-info">
+              <h3 class="section-label">商品信息</h3>
+              <div class="info-table">
+                <div class="info-row">
+                  <div class="info-label">尺寸</div>
+                  <div class="info-value">{{ product.info.size }}</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">重量</div>
+                  <div class="info-value">{{ product.info.weight }}</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">颜色</div>
+                  <div class="info-value">{{ product.info.color }}</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">材质</div>
+                  <div class="info-value">{{ product.info.material }}</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">包装</div>
+                  <div class="info-value">{{ product.info.package }}</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">产地</div>
+                  <div class="info-value">{{ product.info.origin }}</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">保修期</div>
+                  <div class="info-value">{{ product.info.warranty }}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <section class="product-description-section">
+          <div class="section-header">
+            <h2 class="section-title">产品描述</h2>
+          </div>
+          <div class="description-content">
+            <p class="description-text">{{ product.description }}</p>
+            <div class="description-images">
+              <div v-for="(image, index) in product.images" :key="index" class="description-image-container">
+                <img :src="image" :alt="`${product.name} - 图片 ${index + 1}`" class="description-image" />
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section v-if="relatedProducts.length > 0" class="related-section">
           <div class="section-header">
@@ -220,7 +282,8 @@ const relatedProducts = computed(() => {
                 </div>
                 <div class="related-content">
                   <h4 class="related-name">{{ item.name }}</h4>
-                  <span class="related-price">¥{{ item.price.toLocaleString() }}</span>
+                  <span class="related-sales">已售 {{ item.sales }} 件</span>
+                  <span class="related-price">¥{{ item.sizes[0].price.toLocaleString() }}</span>
                 </div>
               </router-link>
             </article>
@@ -453,6 +516,11 @@ const relatedProducts = computed(() => {
   color: var(--text-muted);
 }
 
+.product-sales {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
 .product-rating {
   display: flex;
   align-items: center;
@@ -528,7 +596,7 @@ const relatedProducts = computed(() => {
 
 .size-btn.active {
   border-color: var(--accent-gold);
-  background: rgba(201, 169, 110, 0.1);
+  background: rgba(126, 213, 210, 0.1);
 }
 
 .size-name {
@@ -641,6 +709,9 @@ const relatedProducts = computed(() => {
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition-base);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .related-card:hover {
@@ -652,6 +723,8 @@ const relatedProducts = computed(() => {
   display: block;
   text-decoration: none;
   color: inherit;
+  width: 100%;
+  height: 100%;
 }
 
 .related-image {
@@ -682,10 +755,101 @@ const relatedProducts = computed(() => {
   margin-bottom: var(--spacing-xs);
 }
 
+.related-sales {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
 .related-price {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--accent-gold);
+}
+
+.product-info {
+  margin-top: var(--spacing-2xl);
+  padding-top: var(--spacing-2xl);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--spacing-md);
+}
+
+.info-row {
+  display: flex;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.info-label {
+  flex: 0 0 120px;
+  padding: var(--spacing-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+}
+
+.info-value {
+  flex: 1;
+  padding: var(--spacing-md);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.product-description-section {
+  margin-top: var(--spacing-4xl);
+  padding-top: var(--spacing-4xl);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.description-content {
+  margin-top: var(--spacing-2xl);
+}
+
+.description-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.description-images {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+}
+
+.description-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
+  height: 600px;
+}
+
+.description-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 768px) {
+  .description-image-container {
+    height: 600px;
+  }
 }
 
 .zoom-overlay {

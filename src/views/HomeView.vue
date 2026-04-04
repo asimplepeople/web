@@ -31,16 +31,18 @@ const slides = [
 ]
 
 const categories = [
-  { id: 1, name: '沙发', nameEn: 'Sofa', count: 4, image: '/assets/products/sofa-1.jpg' },
-  { id: 2, name: '灯具', nameEn: 'Lighting', count: 8, image: '/assets/products/lamp-1.jpg' },
-  { id: 3, name: '装饰', nameEn: 'Decor', count: 8, image: '/assets/products/art-1.jpg' },
-  { id: 4, name: '收纳', nameEn: 'Storage', count: 4, image: '/assets/products/storage-1.jpg' }
+  { id: 1, name: '厨房收纳', nameEn: 'Kitchen Storage', count: 8, image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=kitchen%20storage%20organizer%2C%20modern%20design%2C%20clean%20lines%2C%20minimalist%20style&image_size=landscape_16_9' },
+  { id: 2, name: '客厅收纳', nameEn: 'Living Room Storage', count: 8, image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=living%20room%20storage%20solutions%2C%20elegant%20design%2C%20minimalist%20style&image_size=landscape_16_9' },
+  { id: 3, name: '衣物收纳', nameEn: 'Clothing Storage', count: 8, image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=clothing%20storage%20organization%2C%20wardrobe%20organizer%2C%20minimalist%20style&image_size=landscape_16_9' },
+  { id: 4, name: '桌面收纳', nameEn: 'Desktop Storage', count: 8, image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=desktop%20storage%20organizer%2C%20office%20supplies%2C%20minimalist%20design&image_size=landscape_16_9' }
 ]
 
 const featuredProducts = ref(products.slice(0, 4))
 
+const hotProducts = ref(products.sort((a, b) => b.sales - a.sales).slice(0, 4))
+
 const stats = [
-  { value: '500+', label: '精选产品' },
+  { value: '500+', label: '0.99美元专区' },
   { value: '50K+', label: '满意客户' },
   { value: '99%', label: '好评率' },
   { value: '24/7', label: '贴心服务' }
@@ -156,9 +158,9 @@ onUnmounted(() => {
     <section class="featured-section section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Featured</span>
-          <h2 class="section-title">精选产品</h2>
-          <p class="section-subtitle">我们精心挑选的优质产品，为您的家增添独特魅力</p>
+          <span class="section-tag">Special</span>
+          <h2 class="section-title">0.99美元专区</h2>
+          <p class="section-subtitle">超值优惠，限时抢购，为您的家增添独特魅力</p>
         </div>
 
         <div class="products-grid">
@@ -175,6 +177,9 @@ onUnmounted(() => {
                 <h3 class="product-name">{{ product.name }}</h3>
                 <div class="product-footer">
                   <span class="product-price">¥{{ product.price.toLocaleString() }}</span>
+                  <div class="product-sales">
+                    已售 {{ product.sales }} 件
+                  </div>
                   <div class="product-rating">
                     <svg v-for="i in 5" :key="i" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" :class="{ filled: i <= Math.floor(product.rating) }">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -217,6 +222,45 @@ onUnmounted(() => {
       </div>
     </section>
 
+    <section class="hot-section section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Hot</span>
+          <h2 class="section-title">近期热销</h2>
+          <p class="section-subtitle">销量领先的热门产品，限时优惠中</p>
+        </div>
+
+        <div class="products-grid">
+          <article v-for="product in hotProducts" :key="product.id" class="product-card">
+            <router-link :to="`/product/${product.id}`" class="product-link">
+              <div class="product-image">
+                <img :src="product.images[0]" :alt="product.name" loading="lazy" />
+                <div class="product-overlay">
+                  <span class="view-btn">查看详情</span>
+                </div>
+              </div>
+              <div class="product-content">
+                <span class="product-category">{{ product.category }}</span>
+                <h3 class="product-name">{{ product.name }}</h3>
+                <div class="product-footer">
+                  <span class="product-price">¥{{ product.price.toLocaleString() }}</span>
+                  <div class="product-sales">
+                    已售 {{ product.sales }} 件
+                  </div>
+                  <div class="product-rating">
+                    <svg v-for="i in 5" :key="i" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" :class="{ filled: i <= Math.floor(product.rating) }">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span class="rating-value">{{ product.rating }}</span>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="about-section section">
       <div class="container">
         <div class="about-grid">
@@ -244,11 +288,14 @@ onUnmounted(() => {
     <section class="cta-section">
       <div class="container">
         <div class="cta-content">
-          <h2 class="cta-title">开启您的极简生活</h2>
-          <p class="cta-text">订阅我们的通讯，获取最新产品信息和专属优惠</p>
+          <h2 class="cta-title">如果你有定制需求或者对价格有顾虑可以留下你的联系方式</h2>
+          <p class="cta-text">我们的客服团队会在 24 小时内与您联系，为您提供专属解决方案</p>
           <form class="cta-form" @submit.prevent>
-            <input type="email" placeholder="输入您的邮箱地址" class="cta-input" />
-            <button type="submit" class="btn btn-primary">订阅</button>
+            <input type="text" placeholder="您的姓名" class="cta-input" />
+            <input type="tel" placeholder="联系电话" class="cta-input" />
+            <input type="email" placeholder="邮箱地址" class="cta-input" />
+            <textarea placeholder="您的需求或问题" class="cta-textarea"></textarea>
+            <button type="submit" class="btn btn-primary">提交</button>
           </form>
         </div>
       </div>
@@ -613,14 +660,20 @@ onUnmounted(() => {
 
 .product-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: flex-start;
 }
 
 .product-price {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.product-sales {
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
 .product-rating {
@@ -793,7 +846,7 @@ onUnmounted(() => {
   transform: translateX(-50%);
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(126, 213, 210, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -819,13 +872,13 @@ onUnmounted(() => {
 
 .cta-form {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
 .cta-input {
-  flex: 1;
   padding: var(--spacing-md) var(--spacing-lg);
   background: var(--bg-tertiary);
   border: 1px solid var(--border-light);
@@ -834,7 +887,20 @@ onUnmounted(() => {
   font-size: 0.875rem;
 }
 
-.cta-input::placeholder {
+.cta-textarea {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  resize: vertical;
+  min-height: 120px;
+  font-family: var(--font-body);
+}
+
+.cta-input::placeholder,
+.cta-textarea::placeholder {
   color: var(--text-muted);
 }
 

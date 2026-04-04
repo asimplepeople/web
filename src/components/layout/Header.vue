@@ -47,8 +47,8 @@ onUnmounted(() => {
   <header class="header" :class="{ scrolled: isScrolled }">
     <div class="header-inner">
       <router-link to="/" class="logo">
-        <span class="logo-text">极简家居</span>
-        <span class="logo-subtitle">MINIMAL HOME</span>
+        <span class="logo-text">MokuPlas</span>
+        <span class="logo-subtitle">MOKU PLAS</span>
       </router-link>
 
       <nav class="nav" :class="{ open: isMobileMenuOpen }">
@@ -315,7 +315,7 @@ onUnmounted(() => {
 
 .search-input-wrapper:focus-within {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+  box-shadow: 0 0 0 3px rgba(126, 213, 210, 0.1);
 }
 
 .search-icon {

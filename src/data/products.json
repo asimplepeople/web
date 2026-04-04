@@ -18,7 +18,17 @@
       "/shop/assets/products/amazon/amazon_product_002.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 3791,
+    "info": {
+      "size": "30x30x30cm",
+      "weight": "1.0kg",
+      "color": "黄色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 2,
@@ -39,7 +49,17 @@
       "/shop/assets/products/amazon/amazon_product_003.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 1898,
+    "info": {
+      "size": "35x25x15cm",
+      "weight": "3.2kg",
+      "color": "白色",
+      "material": "金属",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 3,
@@ -60,7 +80,17 @@
       "/shop/assets/products/amazon/amazon_product_004.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 8099,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "4.7kg",
+      "color": "粉色",
+      "material": "塑料",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 4,
@@ -81,7 +111,17 @@
       "/shop/assets/products/amazon/amazon_product_005.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 4189,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "1.1kg",
+      "color": "绿色",
+      "material": "陶瓷",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 5,
@@ -102,7 +142,17 @@
       "/shop/assets/products/amazon/amazon_product_006.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 2635,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "0.8kg",
+      "color": "粉色",
+      "material": "布料",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 6,
@@ -123,7 +173,17 @@
       "/shop/assets/products/amazon/amazon_product_007.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 2365,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "1.3kg",
+      "color": "黄色",
+      "material": "布料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 7,
@@ -144,7 +204,17 @@
       "/shop/assets/products/amazon/amazon_product_008.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 2562,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "3.6kg",
+      "color": "蓝色",
+      "material": "布料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 8,
@@ -165,7 +235,17 @@
       "/shop/assets/products/amazon/amazon_product_009.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.4
+    "rating": 4.4,
+    "sales": 2130,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "1.0kg",
+      "color": "粉色",
+      "material": "布料",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 9,
@@ -186,7 +266,17 @@
       "/shop/assets/products/amazon/amazon_product_010.jpeg"
     ],
     "category": "药品收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 8727,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "4.1kg",
+      "color": "粉色",
+      "material": "玻璃",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 10,
@@ -207,7 +297,17 @@
       "/shop/assets/products/amazon/amazon_product_011.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.4
+    "rating": 4.4,
+    "sales": 3085,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "2.6kg",
+      "color": "蓝色",
+      "material": "玻璃",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 11,
@@ -228,7 +328,17 @@
       "/shop/assets/products/amazon/amazon_product_012.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 1113,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "4.9kg",
+      "color": "蓝色",
+      "material": "陶瓷",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 12,
@@ -249,7 +359,17 @@
       "/shop/assets/products/amazon/amazon_product_013.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 1778,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "4.6kg",
+      "color": "黄色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 13,
@@ -270,7 +390,17 @@
       "/shop/assets/products/amazon/amazon_product_014.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 4193,
+    "info": {
+      "size": "30x30x30cm",
+      "weight": "2.1kg",
+      "color": "黑色",
+      "material": "塑料",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 14,
@@ -291,7 +421,17 @@
       "/shop/assets/products/amazon/amazon_product_015.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 2593,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "1.9kg",
+      "color": "黄色",
+      "material": "木材",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 15,
@@ -312,7 +452,17 @@
       "/shop/assets/products/amazon/amazon_product_016.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 9035,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "4.7kg",
+      "color": "黑色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 16,
@@ -333,7 +483,17 @@
       "/shop/assets/products/amazon/amazon_product_017.jpeg"
     ],
     "category": "药品收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 9195,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "3.9kg",
+      "color": "绿色",
+      "material": "塑料",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 17,
@@ -354,7 +514,17 @@
       "/shop/assets/products/amazon/amazon_product_018.jpeg"
     ],
     "category": "药品收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 6522,
+    "info": {
+      "size": "50x30x20cm",
+      "weight": "2.7kg",
+      "color": "粉色",
+      "material": "陶瓷",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 18,
@@ -375,7 +545,17 @@
       "/shop/assets/products/amazon/amazon_product_019.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 4687,
+    "info": {
+      "size": "40x20x15cm",
+      "weight": "1.7kg",
+      "color": "黄色",
+      "material": "金属",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 19,
@@ -396,7 +576,17 @@
       "/shop/assets/products/amazon/amazon_product_020.jpeg"
     ],
     "category": "玩具收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 8417,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "3.8kg",
+      "color": "黄色",
+      "material": "陶瓷",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 20,
@@ -417,7 +607,17 @@
       "/shop/assets/products/amazon/amazon_product_021.jpeg"
     ],
     "category": "玩具收纳",
-    "rating": 4.4
+    "rating": 4.4,
+    "sales": 943,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "0.6kg",
+      "color": "蓝色",
+      "material": "金属",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 21,
@@ -438,7 +638,17 @@
       "/shop/assets/products/amazon/amazon_product_022.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.0
+    "rating": 4.0,
+    "sales": 5277,
+    "info": {
+      "size": "30x30x30cm",
+      "weight": "2.7kg",
+      "color": "黑色",
+      "material": "布料",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 22,
@@ -459,7 +669,17 @@
       "/shop/assets/products/amazon/amazon_product_023.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 4559,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "2.2kg",
+      "color": "蓝色",
+      "material": "木材",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 23,
@@ -480,7 +700,17 @@
       "/shop/assets/products/amazon/amazon_product_024.jpeg"
     ],
     "category": "鞋类收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 3113,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "4.2kg",
+      "color": "蓝色",
+      "material": "金属",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 24,
@@ -501,7 +731,17 @@
       "/shop/assets/products/amazon/amazon_product_025.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.9
+    "rating": 4.9,
+    "sales": 3570,
+    "info": {
+      "size": "40x20x15cm",
+      "weight": "4.0kg",
+      "color": "蓝色",
+      "material": "木材",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 25,
@@ -522,7 +762,17 @@
       "/shop/assets/products/amazon/amazon_product_026.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 4843,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "2.9kg",
+      "color": "蓝色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 26,
@@ -543,7 +793,17 @@
       "/shop/assets/products/amazon/amazon_product_027.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 229,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "2.9kg",
+      "color": "黑色",
+      "material": "木材",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 27,
@@ -564,7 +824,17 @@
       "/shop/assets/products/amazon/amazon_product_028.jpeg"
     ],
     "category": "玩具收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 4896,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "0.6kg",
+      "color": "黑色",
+      "material": "木材",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 28,
@@ -585,7 +855,17 @@
       "/shop/assets/products/amazon/amazon_product_029.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 3031,
+    "info": {
+      "size": "40x20x15cm",
+      "weight": "0.6kg",
+      "color": "粉色",
+      "material": "玻璃",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 29,
@@ -606,7 +886,17 @@
       "/shop/assets/products/amazon/amazon_product_030.jpeg"
     ],
     "category": "鞋类收纳",
-    "rating": 4.9
+    "rating": 4.9,
+    "sales": 358,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "0.7kg",
+      "color": "灰色",
+      "material": "金属",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 30,
@@ -627,7 +917,17 @@
       "/shop/assets/products/amazon/amazon_product_031.jpeg"
     ],
     "category": "药品收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 3259,
+    "info": {
+      "size": "50x30x20cm",
+      "weight": "3.0kg",
+      "color": "黄色",
+      "material": "陶瓷",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 31,
@@ -648,7 +948,17 @@
       "/shop/assets/products/amazon/amazon_product_032.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 8977,
+    "info": {
+      "size": "50x30x20cm",
+      "weight": "1.7kg",
+      "color": "黄色",
+      "material": "木材",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 32,
@@ -669,7 +979,17 @@
       "/shop/assets/products/amazon/amazon_product_033.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 9042,
+    "info": {
+      "size": "30x30x30cm",
+      "weight": "4.7kg",
+      "color": "白色",
+      "material": "布料",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 33,
@@ -690,7 +1010,17 @@
       "/shop/assets/products/amazon/amazon_product_034.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 5892,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "2.9kg",
+      "color": "绿色",
+      "material": "玻璃",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 34,
@@ -711,7 +1041,17 @@
       "/shop/assets/products/amazon/amazon_product_035.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 5072,
+    "info": {
+      "size": "30x30x30cm",
+      "weight": "4.8kg",
+      "color": "黑色",
+      "material": "木材",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 35,
@@ -732,7 +1072,17 @@
       "/shop/assets/products/amazon/amazon_product_036.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 8970,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "4.7kg",
+      "color": "粉色",
+      "material": "金属",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 36,
@@ -753,7 +1103,17 @@
       "/shop/assets/products/amazon/amazon_product_037.jpeg"
     ],
     "category": "药品收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 6875,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "2.4kg",
+      "color": "白色",
+      "material": "陶瓷",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 37,
@@ -774,7 +1134,17 @@
       "/shop/assets/products/amazon/amazon_product_038.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 8853,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "1.8kg",
+      "color": "蓝色",
+      "material": "玻璃",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 38,
@@ -795,7 +1165,17 @@
       "/shop/assets/products/amazon/amazon_product_039.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 4698,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "2.8kg",
+      "color": "黄色",
+      "material": "玻璃",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 39,
@@ -816,7 +1196,17 @@
       "/shop/assets/products/amazon/amazon_product_040.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 8593,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "4.7kg",
+      "color": "蓝色",
+      "material": "陶瓷",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 40,
@@ -837,7 +1227,17 @@
       "/shop/assets/products/amazon/amazon_product_041.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 8579,
+    "info": {
+      "size": "50x30x20cm",
+      "weight": "4.5kg",
+      "color": "灰色",
+      "material": "塑料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 41,
@@ -858,7 +1258,17 @@
       "/shop/assets/products/amazon/amazon_product_042.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.4
+    "rating": 4.4,
+    "sales": 9895,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "2.9kg",
+      "color": "蓝色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 42,
@@ -879,7 +1289,17 @@
       "/shop/assets/products/amazon/amazon_product_043.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 3274,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "2.6kg",
+      "color": "灰色",
+      "material": "塑料",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 43,
@@ -900,7 +1320,17 @@
       "/shop/assets/products/amazon/amazon_product_044.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 2056,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "0.6kg",
+      "color": "黑色",
+      "material": "玻璃",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 44,
@@ -921,7 +1351,17 @@
       "/shop/assets/products/amazon/amazon_product_045.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 861,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "2.7kg",
+      "color": "白色",
+      "material": "金属",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 45,
@@ -942,7 +1382,17 @@
       "/shop/assets/products/amazon/amazon_product_046.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 2723,
+    "info": {
+      "size": "35x25x15cm",
+      "weight": "2.1kg",
+      "color": "黄色",
+      "material": "陶瓷",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 46,
@@ -963,7 +1413,17 @@
       "/shop/assets/products/amazon/amazon_product_047.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.0
+    "rating": 4.0,
+    "sales": 2051,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "3.4kg",
+      "color": "黄色",
+      "material": "陶瓷",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 47,
@@ -984,7 +1444,17 @@
       "/shop/assets/products/amazon/amazon_product_048.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 8949,
+    "info": {
+      "size": "30x30x30cm",
+      "weight": "3.5kg",
+      "color": "白色",
+      "material": "陶瓷",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 48,
@@ -1005,7 +1475,17 @@
       "/shop/assets/products/amazon/amazon_product_049.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 2830,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "1.8kg",
+      "color": "粉色",
+      "material": "陶瓷",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 49,
@@ -1026,7 +1506,17 @@
       "/shop/assets/products/amazon/amazon_product_050.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 3335,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "4.4kg",
+      "color": "蓝色",
+      "material": "布料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 50,
@@ -1047,7 +1537,17 @@
       "/shop/assets/products/amazon/amazon_product_051.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 321,
+    "info": {
+      "size": "35x25x15cm",
+      "weight": "4.8kg",
+      "color": "黑色",
+      "material": "塑料",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 51,
@@ -1068,7 +1568,17 @@
       "/shop/assets/products/amazon/amazon_product_052.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 3942,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "1.5kg",
+      "color": "粉色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 52,
@@ -1089,7 +1599,17 @@
       "/shop/assets/products/amazon/amazon_product_053.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.1
+    "rating": 4.1,
+    "sales": 6365,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "4.0kg",
+      "color": "蓝色",
+      "material": "陶瓷",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 53,
@@ -1110,7 +1630,17 @@
       "/shop/assets/products/amazon/amazon_product_054.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 3085,
+    "info": {
+      "size": "35x25x15cm",
+      "weight": "3.7kg",
+      "color": "粉色",
+      "material": "布料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 54,
@@ -1131,7 +1661,17 @@
       "/shop/assets/products/amazon/amazon_product_055.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 6811,
+    "info": {
+      "size": "25x25x25cm",
+      "weight": "3.7kg",
+      "color": "白色",
+      "material": "木材",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 55,
@@ -1152,7 +1692,17 @@
       "/shop/assets/products/amazon/amazon_product_056.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 7693,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "1.3kg",
+      "color": "灰色",
+      "material": "塑料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 56,
@@ -1173,7 +1723,17 @@
       "/shop/assets/products/amazon/amazon_product_057.jpeg"
     ],
     "category": "食品收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 8619,
+    "info": {
+      "size": "35x25x15cm",
+      "weight": "2.0kg",
+      "color": "白色",
+      "material": "布料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 57,
@@ -1194,7 +1754,17 @@
       "/shop/assets/products/amazon/amazon_product_058.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 5378,
+    "info": {
+      "size": "40x20x15cm",
+      "weight": "2.3kg",
+      "color": "白色",
+      "material": "金属",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 58,
@@ -1215,7 +1785,17 @@
       "/shop/assets/products/amazon/amazon_product_059.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 263,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "2.3kg",
+      "color": "黑色",
+      "material": "金属",
+      "package": "无纺布袋",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 59,
@@ -1236,7 +1816,17 @@
       "/shop/assets/products/amazon/amazon_product_060.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.4
+    "rating": 4.4,
+    "sales": 3573,
+    "info": {
+      "size": "50x30x20cm",
+      "weight": "2.5kg",
+      "color": "灰色",
+      "material": "布料",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 60,
@@ -1257,7 +1847,17 @@
       "/shop/assets/products/amazon/amazon_product_061.jpeg"
     ],
     "category": "鞋类收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 4205,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "3.5kg",
+      "color": "蓝色",
+      "material": "玻璃",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 61,
@@ -1278,7 +1878,17 @@
       "/shop/assets/products/amazon/amazon_product_062.jpeg"
     ],
     "category": "化妆品收纳",
-    "rating": 4.2
+    "rating": 4.2,
+    "sales": 235,
+    "info": {
+      "size": "40x20x15cm",
+      "weight": "5.0kg",
+      "color": "黑色",
+      "material": "塑料",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 62,
@@ -1299,7 +1909,17 @@
       "/shop/assets/products/amazon/amazon_product_063.jpeg"
     ],
     "category": "收纳",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 9695,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "2.0kg",
+      "color": "绿色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 63,
@@ -1328,7 +1948,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20modern%20sofa%20in%20light%20gray%2C%20back%20view%2C%20clean%20lines%2C%20modern%20living%20room&image_size=landscape_16_9"
     ],
     "category": "家具",
-    "rating": 4.8
+    "rating": 4.8,
+    "sales": 8064,
+    "info": {
+      "size": "30x40x50cm",
+      "weight": "3.2kg",
+      "color": "黑色",
+      "material": "塑料",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 64,
@@ -1357,7 +1987,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=nordic%20style%20dining%20table%20with%20wooden%20legs%2C%20white%20tabletop%2C%20corner%20view%2C%20modern%20dining%20room&image_size=landscape_16_9"
     ],
     "category": "家具",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 2322,
+    "info": {
+      "size": "40x20x15cm",
+      "weight": "4.7kg",
+      "color": "白色",
+      "material": "木材",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 65,
@@ -1382,7 +2022,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smart%20desk%20lamp%20with%20touch%20controls%2C%20close%20up%2C%20modern%20design&image_size=landscape_16_9"
     ],
     "category": "灯具",
-    "rating": 4.7
+    "rating": 4.7,
+    "sales": 8315,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "2.4kg",
+      "color": "粉色",
+      "material": "塑料",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 66,
@@ -1407,7 +2057,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20wall%20clock%2C%20installed%20on%20wall%2C%20clean%20design%2C%20modern%20living%20room&image_size=landscape_16_9"
     ],
     "category": "装饰品",
-    "rating": 4.5
+    "rating": 4.5,
+    "sales": 7453,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "0.6kg",
+      "color": "粉色",
+      "material": "玻璃",
+      "package": "白盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 67,
@@ -1432,7 +2092,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=comfortable%20cushion%20with%20soft%20fabric%2C%20on%20sofa%2C%20minimalist%20design&image_size=landscape_16_9"
     ],
     "category": "家居用品",
-    "rating": 4.4
+    "rating": 4.4,
+    "sales": 6110,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "1.2kg",
+      "color": "绿色",
+      "material": "金属",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 68,
@@ -1461,7 +2131,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20abstract%20art%20painting%2C%20in%20modern%20living%20room%2C%20framed%20on%20wall&image_size=landscape_16_9"
     ],
     "category": "装饰品",
-    "rating": 4.9
+    "rating": 4.9,
+    "sales": 456,
+    "info": {
+      "size": "45x35x25cm",
+      "weight": "3.2kg",
+      "color": "黑色",
+      "material": "金属",
+      "package": "牛皮纸盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 69,
@@ -1490,7 +2170,17 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=multi-functional%20storage%20box%2C%20in%20modern%20home%2C%20minimalist%20design&image_size=landscape_16_9"
     ],
     "category": "家居用品",
-    "rating": 4.3
+    "rating": 4.3,
+    "sales": 4229,
+    "info": {
+      "size": "50x30x20cm",
+      "weight": "2.6kg",
+      "color": "绿色",
+      "material": "塑料",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   },
   {
     "id": 70,
@@ -1515,6 +2205,16 @@
       "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20floor%20lamp%2C%20in%20modern%20living%20room%2C%20modern%20design&image_size=landscape_16_9"
     ],
     "category": "灯具",
-    "rating": 4.6
+    "rating": 4.6,
+    "sales": 1101,
+    "info": {
+      "size": "20x30x40cm",
+      "weight": "3.8kg",
+      "color": "黄色",
+      "material": "玻璃",
+      "package": "彩盒",
+      "origin": "中国",
+      "warranty": "1年"
+    }
   }
 ]

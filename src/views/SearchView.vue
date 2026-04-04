@@ -25,7 +25,8 @@ const sortOptions = [
   { value: 'default', label: '默认排序' },
   { value: 'price-asc', label: '价格从低到高' },
   { value: 'price-desc', label: '价格从高到低' },
-  { value: 'rating', label: '评分最高' }
+  { value: 'rating', label: '评分最高' },
+  { value: 'sales', label: '销量最高' }
 ]
 
 const filteredProducts = computed(() => {
@@ -55,6 +56,9 @@ const filteredProducts = computed(() => {
       break
     case 'rating':
       result.sort((a, b) => b.rating - a.rating)
+      break
+    case 'sales':
+      result.sort((a, b) => b.sales - a.sales)
       break
   }
 
@@ -162,6 +166,9 @@ watch(() => route.query.q, (newQ) => {
                 <h3 class="product-name">{{ product.name }}</h3>
                 <div class="product-footer">
                   <span class="product-price">¥{{ product.price.toLocaleString() }}</span>
+                  <div class="product-sales">
+                    已售 {{ product.sales }} 件
+                  </div>
                   <div class="product-rating">
                     <svg v-for="i in 5" :key="i" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" :class="{ filled: i <= Math.floor(product.rating) }">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -238,7 +245,7 @@ watch(() => route.query.q, (newQ) => {
 
 .search-input-wrapper:focus-within {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+  box-shadow: 0 0 0 3px rgba(126, 213, 210, 0.1);
 }
 
 .search-icon {
@@ -449,14 +456,20 @@ watch(() => route.query.q, (newQ) => {
 
 .product-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: flex-start;
 }
 
 .product-price {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.product-sales {
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
 .product-rating {
