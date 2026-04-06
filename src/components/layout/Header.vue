@@ -145,6 +145,7 @@ onUnmounted(() => {
 .header.scrolled::before {
   opacity: 0.95;
   border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
 }
 
 .header-inner {
@@ -195,7 +196,7 @@ onUnmounted(() => {
 .nav-link {
   font-size: 0.875rem;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   text-decoration: none;
   letter-spacing: 0.05em;
   text-transform: uppercase;

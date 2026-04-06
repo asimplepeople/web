@@ -9,24 +9,24 @@ let slideInterval: ReturnType<typeof setInterval> | null = null
 const slides = [
   {
     id: 1,
-    title: '简约之美',
-    subtitle: 'The Beauty of Simplicity',
-    description: '探索极简设计的精髓，每一件产品都经过精心挑选，为您的空间带来宁静与和谐。',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20home%20interior%20with%20modern%20furniture%2C%20clean%20lines%2C%20bright%20space%2C%20luxury%20dark%20theme&image_size=landscape_16_9'
+    title: '厨房收纳',
+    subtitle: 'Kitchen Storage',
+    description: '精心设计的厨房收纳解决方案，让您的厨房整洁有序，烹饪更加轻松愉快。',
+    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20kitchen%20storage%20organizers%2C%20clean%20design%2C%20light%20gray%20background%2C%20blue%20accents%2C%20minimalist%20style&image_size=landscape_16_9'
   },
   {
     id: 2,
-    title: '匠心工艺',
-    subtitle: 'Crafted with Care',
-    description: '我们与顶尖设计师合作，将传统工艺与现代美学完美融合，打造经得起时间考验的经典之作。',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20living%20room%20with%20minimalist%20design%2C%20neutral%20colors%2C%20natural%20light%2C%20luxury%20dark%20theme&image_size=landscape_16_9'
+    title: '厨房工具',
+    subtitle: 'Kitchen Tools',
+    description: '高品质厨房工具，为您的烹饪体验增添乐趣，让每一餐都成为艺术品。',
+    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=premium%20kitchen%20tools%20and%20utensils%2C%20modern%20design%2C%20light%20gray%20background%2C%20blue%20accents%2C%20minimalist%20style&image_size=landscape_16_9'
   },
   {
     id: 3,
-    title: '舒适生活',
-    subtitle: 'Comfort Living',
-    description: '家是心灵的港湾。我们相信，简约的设计能够带来更深层次的舒适与宁静。',
-    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20bedroom%20with%20clean%20design%2C%20soft%20colors%2C%20functional%20furniture%2C%20luxury%20dark%20theme&image_size=landscape_16_9'
+    title: '厨房用品',
+    subtitle: 'Kitchen Supplies',
+    description: '精选厨房用品，为您的家庭提供实用与美观兼具的解决方案。',
+    image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=kitchen%20supplies%20and%20accessories%2C%20modern%20design%2C%20light%20gray%20background%2C%20blue%20accents%2C%20minimalist%20style&image_size=landscape_16_9'
   }
 ]
 
@@ -345,9 +345,9 @@ onUnmounted(() => {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(10, 10, 10, 0.9) 0%,
-    rgba(10, 10, 10, 0.7) 50%,
-    rgba(10, 10, 10, 0.5) 100%
+    rgba(99, 179, 237, 0.1) 0%,
+    rgba(99, 179, 237, 0.05) 50%,
+    transparent 100%
   );
 }
 
@@ -607,7 +607,7 @@ onUnmounted(() => {
 .product-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.6);
+  background: rgba(99, 179, 237, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -736,8 +736,8 @@ onUnmounted(() => {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(10, 10, 10, 0.9) 0%,
-    rgba(10, 10, 10, 0.3) 50%,
+    rgba(99, 179, 237, 0.15) 0%,
+    rgba(99, 179, 237, 0.05) 50%,
     transparent 100%
   );
 }

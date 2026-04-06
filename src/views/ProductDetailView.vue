@@ -39,6 +39,10 @@ const handleSizeChange = (size: any) => {
   selectedSize.value = size
 }
 
+const getImageAlt = (product: any, index: string | number) => {
+  return `${String(product.name)} - 图片 ${Number(index) + 1}`
+}
+
 const nextImage = () => {
   if (product.value) {
     currentImageIndex.value = (currentImageIndex.value + 1) % product.value.images.length
@@ -264,7 +268,7 @@ const relatedProducts = computed(() => {
             <p class="description-text">{{ product.description }}</p>
             <div class="description-images">
               <div v-for="(image, index) in product.images" :key="index" class="description-image-container">
-                <img :src="image" :alt="`${product.name} - 图片 ${index + 1}`" class="description-image" />
+                <img :src="image" :alt="getImageAlt(product, index)" class="description-image" />
               </div>
             </div>
           </div>
